@@ -5,6 +5,7 @@ fn general_category_test() {
     use std::ops::Not;
     use unicode_properties::UnicodeGeneralCategory;
     use unicode_properties::{GeneralCategory, GeneralCategoryGroup};
+
     assert_eq!('A'.general_category(), GeneralCategory::LetterUppercase);
     assert_eq!('A'.general_category_group(), GeneralCategoryGroup::Letter);
     assert!('A'.is_letter_cased());

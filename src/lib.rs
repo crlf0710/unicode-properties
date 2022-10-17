@@ -41,6 +41,11 @@
 #![deny(missing_docs)]
 
 #[rustfmt::skip]
+#[cfg(not(feature = "icu"))]
+mod tables;
+
+#[cfg(feature = "icu")]
+#[path = "icu_tables/mod.rs"]
 mod tables;
 
 #[cfg(feature = "emoji")]
@@ -75,6 +80,21 @@ pub mod emoji {
     impl UnicodeEmoji for char {
         fn emoji_status(self) -> EmojiStatus {
             crate::tables::emoji::emoji_status(self)
+        }
+
+        #[cfg(feature = "icu")]
+        fn is_emoji_char(self) -> bool {
+            crate::tables::emoji::is_emoji_char(self)
+        }
+
+        #[cfg(feature = "icu")]
+        fn is_emoji_component(self) -> bool {
+            crate::tables::emoji::is_emoji_component(self)
+        }
+
+        #[cfg(feature = "icu")]
+        fn is_emoji_char_or_emoji_component(self) -> bool {
+            crate::tables::emoji::is_emoji_char_or_emoji_component(self)
         }
     }
 
